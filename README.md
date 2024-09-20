@@ -11,4 +11,4 @@ For this task GitHub has been chosen as the main login provider as the test requ
 
 In this specific case, the main layout implements the provider to be able wrap the whole application, letting us use it in whichever page we decide to. This is called the provider pattern, as opposed to the middleware pattern, taht consists in creating a middleware file and implement that logic there. The second pattern is more useful when we want to protect all routes, even though it can protect specific ones.
 
-For the protected route we get the server session and check if there is a session and if it has an user, otherwise it redirects to the login page.
+For the protected route we get the server session and check if there is a session and if it has an user, otherwise it redirects to the login page. For the dashboard it checks if the current user is admin, if not, it doesn't show either.

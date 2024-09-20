@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import type { Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 const USERS = [
   {
@@ -11,7 +13,7 @@ const USERS = [
     image:
       "https://upload.wikimedia.org/wikipedia/commons/4/42/Captain_John_Smith_gravure_new.jpg",
     password: "1234abcd",
-    admin: true,
+    role: "admin",
   },
   {
     id: "1",
@@ -21,7 +23,6 @@ const USERS = [
     image:
       "https://img.a.transfermarkt.technology/portrait/big/710004-1706697849.jpg?lm=1",
     password: "abcd1234",
-    admin: false,
   },
 ];
 
@@ -52,6 +53,16 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET ?? "",
     }),
   ],
+  callbacks: {
+    session({ session, token }: { session: Session; token: JWT }) {
+      session.user = token.user;
+      return session;
+    },
+    jwt({ token, user }: { token: JWT; user: Session["user"] }) {
+      if (!!user) token.user = user;
+      return token;
+    },
+  },
 };
 
 export const handler = NextAuth(authOptions);
