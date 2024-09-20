@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import Avatar from "./Avatar";
 
 const ACTIVE_ROUTE = "py-1 px-2 text-gray-300 bg-gray-700";
 const INACTIVE_ROUTE =
@@ -12,7 +13,9 @@ function AuthButton() {
 
   return (
     <div className="flex items-center gap-6">
-      <p>{session ? session?.user?.name : "Not signed in"}</p>
+      {session && <Avatar image={session.user?.image} />}
+
+      <p>{!session && "Not signed in"}</p>
       {session ? (
         <button onClick={() => signOut()}>Log out</button>
       ) : (
