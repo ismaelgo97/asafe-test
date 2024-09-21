@@ -1,17 +1,5 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import Welcome from "@/components/Welcome";
 
-export default async function ProtectedRoute() {
-  const session = await getServerSession();
-  if (!session || !session.user) {
-    redirect("/api/auth/signin");
-  }
-
-  return (
-    <div>
-      This is a protected route.
-      <br />
-      You are authenticated.
-    </div>
-  );
+export default function ProtectedRoute() {
+  return <Welcome page="protected" />;
 }

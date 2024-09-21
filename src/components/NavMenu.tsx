@@ -4,14 +4,14 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Avatar from "./Avatar";
 import { Session } from "next-auth";
+import ThemeSelector from "./ThemeSelector";
 
-const ACTIVE_ROUTE = "py-1 px-2 text-gray-300 bg-gray-700";
-const INACTIVE_ROUTE =
-  "py-1 px-2 text-gray-500 hover:text-gray-300 hover:bg-gray-700";
+const ACTIVE_ROUTE = "py-1 px-2 bg-selected rounded-xl";
+const INACTIVE_ROUTE = "py-1 px-2 hover:bg-hover text-selected rounded-xl";
 
 function AuthButton(session: Session | null) {
   return (
-    <div className="flex items-center gap-6">
+    <div className="flex items-center gap-2 text-secondary">
       {session && <Avatar image={session.user?.image} />}
       {session ? (
         <button onClick={() => signOut()}>Log out</button>
@@ -27,8 +27,8 @@ export default function NavMenu() {
   const { data: session } = useSession();
 
   return (
-    <div className="flex justify-between">
-      <ul className="flex">
+    <div className="flex justify-between bg-primary items-center text-secondary mb-8 mt-4">
+      <ul className="flex gap-2">
         <Link href="/">
           <li className={pathname === "/" ? ACTIVE_ROUTE : INACTIVE_ROUTE}>
             Home
@@ -57,7 +57,10 @@ export default function NavMenu() {
           </Link>
         ) : null}
       </ul>
-      {AuthButton(session)}
+      <div className="flex flex-row gap-6">
+        <ThemeSelector />
+        {AuthButton(session)}
+      </div>
     </div>
   );
 }
