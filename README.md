@@ -1,5 +1,5 @@
 This is a Next.js project based on the technical test for a-safe, following the requirements in [the pdf](tech-test.pdf)
-Link: https://asafe-test-git-main-ismaelgo97s-projects.vercel.app/
+Link: https://asafe-test.vercel.app/
 
 ## 1. Authentication with Next.js
 
